@@ -66,7 +66,7 @@ function Form({ setGroups, isHoveringRef }) {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className=" bg-white p-3 flex gap-5 font-monserrat text-accent lg:justify-start"
+			className=" bg-white p-3 flex gap-5 font-monserrat text-accent lg:justify-start border border-y-2 border-y-yellow"
 		>
 			<div className=" max-w-56 text-accent md:flex md:max-w-lg gap-3 items-center">
 				<input
