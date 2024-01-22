@@ -34,12 +34,12 @@ function App() {
 
 
 	return (
-		<main className=" bg-bg min-h-screen overflow-hidden">
+		<main className=" bg-bg min-h-screen overflow-hidden ">
 			<Title />
 			<Form setGroups={setGroups} />
 			<Mouse isHovering={isHoveringRef.current} />
 	
-			<section>
+			<section className=" pb-7">
 				<ul className=" flex flex-wrap gap-5 justify-center p-5">
 					{groups.map((group, index) => {
 						const [bgColor, textColor] = generateColorCombo();

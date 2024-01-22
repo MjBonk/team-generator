@@ -16,10 +16,12 @@ module.exports = {
 			//
 			beige: "#D7D2C8",
 			offwhite: "#F5F5F5",
+			white: "#FFFFFF",
 
 			text: "#676557",
 			bg: "#F5F5F5",
-			accent: "#3942C5",
+			accent: "#889D81",
+			accentLight: "#666BC4",
 		},
 		extend: {
 			fontFamily: {
