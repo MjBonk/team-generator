@@ -39,8 +39,8 @@ function App() {
 			<Form setGroups={setGroups} />
 			<Mouse isHovering={isHoveringRef.current} />
 	
-			<section className=" pb-7">
-				<ul className=" flex flex-wrap gap-5 justify-center p-5">
+			<section >
+				<ul className=" flex flex-wrap gap-7 justify-center p-5 py-14">
 					{groups.map((group, index) => {
 						const [bgColor, textColor] = generateColorCombo();
 
