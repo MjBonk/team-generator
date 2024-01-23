@@ -1,3 +1,4 @@
+
 function Marquee() {
 	return (
 		<div className="bg-yellow w-[200%] overflow-hidden fixed bottom-0">

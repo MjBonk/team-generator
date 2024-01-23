@@ -19,7 +19,7 @@ function Clock() {
 		return () => clearInterval(clockInterval)
 	},[]);
 
-	return <div>{formatTime()}</div>;
+	return <div className=" text-lb">{formatTime()}</div>;
 }
 
 export default Clock;

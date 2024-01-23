@@ -18,8 +18,9 @@ module.exports = {
 			white: "#FFFFFF",
 
 			text: "#676557",
+			title: "#0C0C0C",
 			bg: "#F5F5F5",
-			accent: "#889D81",
+			accent: "#494943",
 			accentLight: "#666BC4",
 		},
 		extend: {

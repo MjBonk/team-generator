@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 
 function Form({ setGroups, isHoveringRef }) {
 	const [people, setPeople] = useState([]);
 	let selectedFile;
 
-	async function handleFileChange(e) {
+	function handleFileChange(e) {
 		selectedFile = e.target.files[0];
 		return selectedFile;
 	}
@@ -29,7 +29,6 @@ function Form({ setGroups, isHoveringRef }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 		const inputList = document.querySelector("#inputList").value;
-
 		const peopleInput = inputList.split("\n");
 		const peopleList = peopleInput.filter((person) => person !== "");
 
@@ -61,12 +60,14 @@ function Form({ setGroups, isHoveringRef }) {
 		amountOfMembersRadio.checked
 			? setGroupObjects(people, amountOfGroups)
 			: setGroupObjects(people, quantityValue);
+
 	}, [people]);
+
 
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className=" bg-white p-3 flex gap-5 font-monserrat text-accent lg:justify-start border border-y-2 border-y-yellow"
+			className=" bg-green bg-opacity-10 p-3 flex gap-5 font-monserrat text-accent lg:justify-start"
 		>
 			<div className=" max-w-56 text-accent md:flex md:max-w-lg gap-3 items-center">
 				<input
@@ -85,7 +86,7 @@ function Form({ setGroups, isHoveringRef }) {
 					className=" h-8 w-[100%] p-1 bg-accent bg-opacity-25 hover:bg-opacity-100 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent transition-all duration-500 ease-in-out rounded-md hover:h-20  focus:h-20 focus:outline-none text-sm"
 				/>
 			</div>
-			<div className=" flex flex-col md:flex-row gap-3 ">
+			<div className=" flex flex-col md:flex-row gap-5 ">
 				<div>
 					<p>Generate based on:</p>
 					<div className=" flex gap-2 text-sm">
@@ -121,8 +122,8 @@ function Form({ setGroups, isHoveringRef }) {
 			</div>
 
 			<button
-				// onMouseEnter={(e)=> isHoveringRef.current = true}
-				// onMouseLeave={(e)=> isHoveringRef.current = false}
+				// onMouseEnter={() => handleHover(true)}
+				// onMouseLeave={() => handleHover(false)}
 				className=" mx-auto p-2 w-28 h-28 md:h-auto rounded-full bg-accent bg-opacity-25 hover:bg-opacity-100 hover:text-offwhite transition-all duration-200"
 			>
 				GENERATE!
