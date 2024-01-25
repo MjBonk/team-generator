@@ -4,7 +4,6 @@ import * as XLSX from "xlsx";
 
 function Form({ setGroups }) {
 	const [people, setPeople] = useState([]);
-	// const [, setCursor] = useContext(CursorContext);
 	const { toggleHover } = useContext(CursorContext);
 	let selectedFile;
 
@@ -26,6 +25,7 @@ function Form({ setGroups }) {
 
 	function handleFileChange(e) {
 		selectedFile = e.target.files[0];
+		console.log(selectedFile);
 	}
 
 	function handleSubmit(e) {
@@ -33,7 +33,7 @@ function Form({ setGroups }) {
 
 		const inputList = document.querySelector("#inputList").value;
 		const peopleInput = inputList.split("\n");
-		const peopleList = peopleInput.filter((person) => person !== "");
+		let peopleList = peopleInput.filter((person) => person !== "");
 
 		if (selectedFile) {
 			let fileReader = new FileReader();
@@ -48,9 +48,11 @@ function Form({ setGroups }) {
 						peopleList.push(workbook.Strings[i].t);
 					}
 				}
+				peopleList = peopleList.sort((a, b) => 0.5 - Math.random());
 				setPeople(peopleList);
 			};
 		} else {
+			peopleList = peopleList.sort((a, b) => 0.5 - Math.random());
 			setPeople(peopleList);
 		}
 	}

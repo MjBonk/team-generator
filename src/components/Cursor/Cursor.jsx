@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, } from "react";
 import { CursorContext } from "./CursorContextProvider";
 
-function Cursor(props) {
+function Cursor() {
 	const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 	// const [cursor] = useContext(CursorCotext);
 	const {isHovering} = useContext(CursorContext);

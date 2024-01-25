@@ -1,4 +1,4 @@
-import { createContext, useState, useRef } from "react";
+import { createContext, useRef } from "react";
 
 //"Note that we’re exporting CursorContext because we’ll need it later to access the cursor context in other components."
 export const CursorContext = createContext();
