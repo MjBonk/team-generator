@@ -1,7 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, } from "react";
+import { CursorContext } from "./CursorContextProvider";
 
 function Cursor(props) {
 	const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+	// const [cursor] = useContext(CursorCotext);
+	const {isHovering} = useContext(CursorContext);
+
 
 	function handleCursorMove(e) {
 		setCursorPosition({ x: e.clientX, y: e.clientY });
@@ -20,10 +24,10 @@ function Cursor(props) {
 				top: `${cursorPosition.y}px`,
 				left: `${cursorPosition.x}px`,
 				pointerEvents: "none",
-				scale: props.isHovering ? "0" : "1",
-				transition: "transform 5s linear",
+				scale: isHovering.current ? "0" : "1",
+				transition: "scale .1s linear",
 			}}
-			className=" w-7 h-7 bg-accent rounded-full fixed translate-x-[-50%] translate-y-[-50%] z-50  "
+			className=" w-7 h-7 bg-accent rounded-full fixed -translate-x-3.5 -translate-y-3.5 z-50 origin-top-left"
 		></div>
 	);
 }

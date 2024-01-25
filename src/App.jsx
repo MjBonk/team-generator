@@ -19,14 +19,13 @@ function App() {
 		return [color1, color2];
 	}
 
-	const isHoveringRef = useRef(false);
 
 	return (
 		<CursorContextProvider>
 			<Cursor />
 			<main className=" bg-bg min-h-screen overflow-hidden ">
 				<Title />
-				<Form setGroups={setGroups} isHoveringRef={isHoveringRef} />
+				<Form setGroups={setGroups} />
 
 				<section>
 					<ul className=" flex flex-wrap gap-7 justify-center p-5 lg:p-10 py-14">
