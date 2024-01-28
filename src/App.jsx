@@ -7,7 +7,7 @@ import Marquee from "./components/Marquee";
 import Form from "./components/Form.jsx";
 
 function App() {
-	const [groups, setGroups] = useState([]);
+	const [teams, setTeams] = useState([]);
 
 	function generateColorCombo() {
 		const colors = ["#E578AB", "#F6ED59", "#AD283A", "#494943", "#889D81", "#DA7B00", "#3942C5", "#0D5747"];
@@ -22,20 +22,20 @@ function App() {
 	return (
 		<CursorContextProvider>
 			<Cursor />
-			<main className=" bg-bg min-h-screen overflow-hidden ">
+			<main className=" bg-bg min-h-screen overflow-hidden cursor-none ">
 				<Title />
-				<Form setGroups={setGroups} />
+				<Form setTeams={setTeams} />
 
 				<section>
 					<ul className=" flex flex-wrap gap-7 justify-center p-5 lg:p-10 py-14">
-						{groups.map((group, index) => {
+						{teams.map((team, index) => {
 							const [bgColor, textColor] = generateColorCombo();
 
 							return (
 								<li key={index}>
 									<TeamCard
-										id={group.id}
-										members={group.members}
+										id={team.id}
+										members={team.members}
 										bgColor={bgColor}
 										textColor={textColor}
 									/>

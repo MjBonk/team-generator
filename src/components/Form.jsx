@@ -2,29 +2,47 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { CursorContext } from "../Provider";
 import * as XLSX from "xlsx";
 
-function Form({ setGroups }) {
+function Form({ setTeams }) {
 	const [people, setPeople] = useState([]);
 	const { toggleHover } = useContext(CursorContext);
 	let selectedFile;
 
-	function setGroupObjects(people, totalGroups) {
-		let newGroups = [];
-		for (let i = 1; i <= totalGroups; i++) {
-			newGroups = [...newGroups, { id: i, members: [] }];
+	function generateTeams(people, totalteams) {
+		let newteams = [];
+		for (let i = 1; i <= totalteams; i++) {
+			newteams = [...newteams, { id: i, members: [] }];
 		}
 
-		let groupIndex = 1;
+		let teamIndex = 1;
 		for (let i = 0; i < people.length; i++) {
-			newGroups = newGroups.map((group) =>
-				group.id === groupIndex ? { ...group, members: [...group.members, people[i]] } : group
+			newteams = newteams.map((team) =>
+				team.id === teamIndex ? { ...team, members: [...team.members, people[i]] } : team
 			);
-			groupIndex = groupIndex === totalGroups ? 1 : ++groupIndex;
+			teamIndex = teamIndex === totalteams ? 1 : ++teamIndex;
 		}
-		setGroups(newGroups);
+		setTeams(newteams);
 	}
 
 	function handleFileChange(e) {
 		selectedFile = e.target.files[0];
+	}
+
+	function readFile(selectedFile, peopleList) {
+		let fileReader = new FileReader();
+		fileReader.readAsBinaryString(selectedFile);
+
+		fileReader.onload = (e) => {
+			let data = e.target.result;
+			let workbook = XLSX.read(data, { type: "binary" });
+
+			for (let i = 0; i < workbook.Strings.length; i++) {
+				if (workbook.Strings[i].t) {
+					peopleList.push(workbook.Strings[i].t);
+				}
+			}
+			peopleList = peopleList.sort((a, b) => 0.5 - Math.random());
+			setPeople(peopleList);
+		};
 	}
 
 	function handleSubmit(e) {
@@ -35,21 +53,7 @@ function Form({ setGroups }) {
 		let peopleList = peopleInput.filter((person) => person !== "");
 
 		if (selectedFile) {
-			let fileReader = new FileReader();
-			fileReader.readAsBinaryString(selectedFile);
-
-			fileReader.onload = (e) => {
-				let data = e.target.result;
-				let workbook = XLSX.read(data, { type: "binary" });
-
-				for (let i = 0; i < workbook.Strings.length; i++) {
-					if (workbook.Strings[i].t) {
-						peopleList.push(workbook.Strings[i].t);
-					}
-				}
-				peopleList = peopleList.sort((a, b) => 0.5 - Math.random());
-				setPeople(peopleList);
-			};
+			readFile(selectedFile, peopleList);
 		} else {
 			peopleList = peopleList.sort((a, b) => 0.5 - Math.random());
 			setPeople(peopleList);
@@ -61,11 +65,11 @@ function Form({ setGroups }) {
 		const amountOfMembersRadio = document.querySelector("#amountOfMembers");
 
 		let extras = people.length % quantityValue;
-		let amountOfGroups = (people.length - extras) / quantityValue;
+		let amountOfteams = (people.length - extras) / quantityValue;
 
 		amountOfMembersRadio.checked
-			? setGroupObjects(people, amountOfGroups)
-			: setGroupObjects(people, quantityValue);
+			? generateTeams(people, amountOfteams)
+			: generateTeams(people, quantityValue);
 	}, [people]);
 
 	return (
@@ -83,18 +87,19 @@ function Form({ setGroups }) {
 						id="fileInput"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className=" h-8 file:h-full  file:text-offwhite file:bg-accent hover:text-offwhite text-sm w-full file:border-none transition-all duration-300"
+						className=" h-8 file:h-full cursor-pointer  file:text-offwhite file:bg-accent hover:text-offwhite text-sm max-w-60 file:border-none transition-all duration-300 "
 					/>
 				</HoverEffect>
 
 				<p>and/or</p>
+
 				<HoverEffect rounded="rounded-md">
 					<textarea
-						placeholder="Write team members "
+						placeholder="Write members "
 						id="inputList"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className=" h-8 w-[100%] p-1 bg-accent bg-opacity-0 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent transition-all duration-300 ease-in-out hover:h-20  focus:h-20 focus:outline-none text-sm"
+						className=" h-10 w-30 p-1 bg-accent bg-opacity-0 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent placeholder:text-opacity-50 hover:placeholder:text-opacity-50 transition-all duration-300 ease-in-out hover:h-20  focus:h-20 focus:outline-none text-sm resize-none "
 					/>
 				</HoverEffect>
 			</div>
@@ -119,7 +124,7 @@ function Form({ setGroups }) {
 							<input
 								type="radio"
 								name="typeOfGenerator"
-								id="amountOfGroups"
+								id="amountOfteams"
 								onMouseEnter={toggleHover}
 								onMouseLeave={toggleHover}
 								className="appearance-none w-4 h-4 rounded-full bg-accent bg-opacity-50 checked:bg-opacity-100 hover:bg-accent transition-all duration-300 mr-1"
@@ -133,10 +138,10 @@ function Form({ setGroups }) {
 						type="number"
 						min={0}
 						id="quantityInput"
-						defaultValue={0}
+						placeholder="0"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className="  p-1 w-20 bg-opacity-25 bg-accent hover:text-offwhite "
+						className="  p-1 w-20 placeholder:text-opacity-50 placeholder:text-accent hover:text-offwhite hover:placeholder:text-offwhite hover:placeholder:text-opacity-50 bg-opacity-0 bg-accent"
 					/>
 				</HoverEffect>
 			</div>
@@ -144,7 +149,7 @@ function Form({ setGroups }) {
 				<button
 					onMouseEnter={toggleHover}
 					onMouseLeave={toggleHover}
-					className=" mx-auto p-2 w-28 h-28 md:h-auto z-20 cursor-none"
+					className=" mx-auto p-2 w-28 h-28 md:h-auto z-20"
 				>
 					GENERATE!
 				</button>

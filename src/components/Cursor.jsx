@@ -23,7 +23,7 @@ function Cursor() {
 					top: `${cursorPosition.y}px`,
 					left: `${cursorPosition.x}px`,
 					pointerEvents: "none",
-					scale: isHovering.current ? "0.1" : "1",
+					scale: isHovering.current ? "0" : "1",
 					backgroundColor: isHovering.current ? "#F5F5F5" : "#494943",
 					transition: "scale .2s ease-in",
 				}}
