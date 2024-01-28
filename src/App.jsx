@@ -27,7 +27,7 @@ function App() {
 				<Form setTeams={setTeams} />
 
 				<section>
-					<ul className=" flex flex-wrap gap-7 justify-center p-5 lg:p-10 py-14">
+					<ul className=" flex flex-wrap gap-7 justify-center pt-14 pb-20">
 						{teams.map((team, index) => {
 							const [bgColor, textColor] = generateColorCombo();
 

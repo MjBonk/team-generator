@@ -5,7 +5,7 @@ import * as XLSX from "xlsx";
 function Form({ setTeams }) {
 	const [people, setPeople] = useState([]);
 	const { toggleHover } = useContext(CursorContext);
-	let selectedFile;
+	const [selectedFile, setSelectedFile] = useState([]);
 
 	function generateTeams(people, totalteams) {
 		let newteams = [];
@@ -24,7 +24,8 @@ function Form({ setTeams }) {
 	}
 
 	function handleFileChange(e) {
-		selectedFile = e.target.files[0];
+		const file = e.target.files[0];
+		setSelectedFile(file);
 	}
 
 	function readFile(selectedFile, peopleList) {
@@ -77,7 +78,7 @@ function Form({ setTeams }) {
 			onSubmit={handleSubmit}
 			className=" bg-green bg-opacity-10 p-3 flex gap-5 font-monserrat text-accent lg:justify-start"
 		>
-			<div className=" max-w-56 text-accent md:flex md:max-w-lg gap-3 items-center">
+			<div className=" max-w-56 text-accent lg:flex md:max-w-lg gap-3 items-center">
 				<HoverEffect rounded="rounded-md">
 					<input
 						type="file"
@@ -99,11 +100,11 @@ function Form({ setTeams }) {
 						id="inputList"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className=" h-10 w-30 p-1 bg-accent bg-opacity-0 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent placeholder:text-opacity-50 hover:placeholder:text-opacity-50 transition-all duration-300 ease-in-out hover:h-20  focus:h-20 focus:outline-none text-sm resize-none "
+						className=" h-8 w-30 p-1 bg-accent bg-opacity-0 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent placeholder:text-opacity-50 hover:placeholder:text-opacity-50 transition-all duration-300 ease-in-out hover:h-20  focus:h-20 focus:outline-none text-sm resize-none "
 					/>
 				</HoverEffect>
 			</div>
-			<div className=" flex flex-col md:flex-row gap-5 ">
+			<div className=" flex flex-col lg:flex-row gap-5 ">
 				<div>
 					<p>Generate based on:</p>
 					<div className=" flex gap-2 text-sm">
@@ -149,7 +150,7 @@ function Form({ setTeams }) {
 				<button
 					onMouseEnter={toggleHover}
 					onMouseLeave={toggleHover}
-					className=" mx-auto p-2 w-28 h-28 md:h-auto z-20"
+					className=" mx-auto p-2 w-28 h-28 lg:h-auto z-20"
 				>
 					GENERATE!
 				</button>
