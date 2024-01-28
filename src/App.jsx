@@ -1,6 +1,6 @@
 import React, { useState, useRef, createContext } from "react";
-import CursorContextProvider from "./components/Cursor/CursorContextProvider";
-import Cursor from "./components/Cursor/Cursor";
+import CursorContextProvider from "./Provider";
+import Cursor from "./components/Cursor";
 import TeamCard from "./components/TeamCard";
 import Title from "./components/Title";
 import Marquee from "./components/Marquee";
@@ -18,7 +18,6 @@ function App() {
 
 		return [color1, color2];
 	}
-
 
 	return (
 		<CursorContextProvider>

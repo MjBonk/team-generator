@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { CursorContext } from "./Cursor/CursorContextProvider";
+import { useContext, useEffect, useState, useRef } from "react";
+import { CursorContext } from "../Provider";
 import * as XLSX from "xlsx";
 
 function Form({ setGroups }) {
@@ -25,7 +25,6 @@ function Form({ setGroups }) {
 
 	function handleFileChange(e) {
 		selectedFile = e.target.files[0];
-		console.log(selectedFile);
 	}
 
 	function handleSubmit(e) {
@@ -75,25 +74,29 @@ function Form({ setGroups }) {
 			className=" bg-green bg-opacity-10 p-3 flex gap-5 font-monserrat text-accent lg:justify-start"
 		>
 			<div className=" max-w-56 text-accent md:flex md:max-w-lg gap-3 items-center">
-				<input
-					type="file"
-					accept=".xlsx"
-					onChange={handleFileChange}
-					name="fileInput"
-					id="fileInput"
-					onMouseEnter={toggleHover}
-					onMouseLeave={toggleHover}
-					className=" h-8 file:h-full  file:text-offwhite file:bg-accent bg-accent bg-opacity-25 file:hover:bg-opacity-100 hover:bg-opacity-100 hover:text-offwhite text-sm rounded-md w-full file:border-none file:transition-all file:duration-500 transition-all duration-500"
-				/>
+				<HoverEffect rounded="rounded-md">
+					<input
+						type="file"
+						accept=".xlsx"
+						onChange={handleFileChange}
+						name="fileInput"
+						id="fileInput"
+						onMouseEnter={toggleHover}
+						onMouseLeave={toggleHover}
+						className=" h-8 file:h-full  file:text-offwhite file:bg-accent hover:text-offwhite text-sm w-full file:border-none transition-all duration-300"
+					/>
+				</HoverEffect>
 
 				<p>and/or</p>
-				<textarea
-					placeholder="Write team members "
-					id="inputList"
-					onMouseEnter={toggleHover}
-					onMouseLeave={toggleHover}
-					className=" h-8 w-[100%] p-1 bg-accent bg-opacity-25 hover:bg-opacity-100 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent transition-all duration-500 ease-in-out rounded-md hover:h-20  focus:h-20 focus:outline-none text-sm"
-				/>
+				<HoverEffect rounded="rounded-md">
+					<textarea
+						placeholder="Write team members "
+						id="inputList"
+						onMouseEnter={toggleHover}
+						onMouseLeave={toggleHover}
+						className=" h-8 w-[100%] p-1 bg-accent bg-opacity-0 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent transition-all duration-300 ease-in-out hover:h-20  focus:h-20 focus:outline-none text-sm"
+					/>
+				</HoverEffect>
 			</div>
 			<div className=" flex flex-col md:flex-row gap-5 ">
 				<div>
@@ -107,7 +110,7 @@ function Form({ setGroups }) {
 								defaultChecked
 								onMouseEnter={toggleHover}
 								onMouseLeave={toggleHover}
-								className=" appearance-none w-4 h-4 rounded-full bg-accent bg-opacity-50 checked:bg-opacity-100 hover:bg-accent transition-all duration-500 mr-1"
+								className=" appearance-none w-4 h-4 rounded-full bg-accent bg-opacity-50 checked:bg-opacity-100 hover:bg-accent transition-all duration-300 mr-1"
 							/>
 							members
 						</label>
@@ -119,32 +122,68 @@ function Form({ setGroups }) {
 								id="amountOfGroups"
 								onMouseEnter={toggleHover}
 								onMouseLeave={toggleHover}
-								className="appearance-none w-4 h-4 rounded-full bg-accent bg-opacity-50 checked:bg-opacity-100 hover:bg-accent transition-all duration-500 mr-1"
+								className="appearance-none w-4 h-4 rounded-full bg-accent bg-opacity-50 checked:bg-opacity-100 hover:bg-accent transition-all duration-300 mr-1"
 							/>
 							teams
 						</label>
 					</div>
 				</div>
-
-				<input
-					type="number"
-					min={0}
-					id="quantityInput"
-					defaultValue={0}
+				<HoverEffect rounded="rounded-md">
+					<input
+						type="number"
+						min={0}
+						id="quantityInput"
+						defaultValue={0}
+						onMouseEnter={toggleHover}
+						onMouseLeave={toggleHover}
+						className="  p-1 w-20 bg-opacity-25 bg-accent hover:text-offwhite "
+					/>
+				</HoverEffect>
+			</div>
+			<HoverEffect rounded="rounded-full">
+				<button
 					onMouseEnter={toggleHover}
 					onMouseLeave={toggleHover}
-					className="  rounded-md p-1 w-20 bg-opacity-25 bg-accent hover:text-offwhite hover:bg-opacity-100 transition-all duration-500"
-				/>
-			</div>
-
-			<button
-				onMouseEnter={toggleHover}
-				onMouseLeave={toggleHover}
-				className=" mx-auto p-2 w-28 h-28 md:h-auto rounded-full bg-accent bg-opacity-25 hover:bg-opacity-100 hover:text-offwhite transition-all duration-500 cursor-none"
-			>
-				GENERATE!
-			</button>
+					className=" mx-auto p-2 w-28 h-28 md:h-auto z-20 cursor-none"
+				>
+					GENERATE!
+				</button>
+			</HoverEffect>
 		</form>
+	);
+}
+
+function HoverEffect(props) {
+	const [position, setPosition] = useState({ x: 0, y: 0 });
+	const wrapperRef = useRef(null);
+
+	function handleCursorMove(e) {
+		let wrapperPosition = wrapperRef.current.getBoundingClientRect();
+		setPosition({ x: e.clientX - wrapperPosition.x, y: e.clientY - wrapperPosition.y });
+	}
+
+	useEffect(() => {
+		wrapperRef.current.addEventListener("mousemove", handleCursorMove);
+		return () => {
+			wrapperRef.current.removeEventListener("mousemove", handleCursorMove);
+		};
+	}, [position]);
+
+	return (
+		<div
+			ref={wrapperRef}
+			className={` group relative ${props.rounded} h-auto bg-black bg-opacity-25 hover:text-offwhite m-auto overflow-hidden z-0 `}
+		>
+			<div
+				style={{
+					top: `${position.y}px`,
+					left: `${position.x}px`,
+					pointerEvents: "none",
+				}}
+				className={` scale-0 group-hover:scale-100 absolute w-96 h-96 rounded-full bg-accent -translate-x-[50%] -translate-y-[50%] -z-10 transition-scale duration-300`}
+			></div>
+			{props.children}
+		</div>
 	);
 }
 
