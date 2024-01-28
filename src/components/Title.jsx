@@ -5,7 +5,6 @@ function Title() {
 			<h1>I'LL PUT YOU IN THE </h1>
 			<div className=" flex items-center">
 				<img src="./public/Comp 1.gif" className=" w-36 md:w-40 lg:w-52 h-[100%] -my-5 -mx-1" />
-				<img src="./public/giphy.gif" alt="" />
 				<h1>TEAM</h1>
 			</div>
 		</div>
