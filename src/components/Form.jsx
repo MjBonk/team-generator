@@ -76,7 +76,7 @@ function Form({ setTeams }) {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className=" bg-green bg-opacity-10 p-3 flex gap-5 font-monserrat text-accent lg:justify-start"
+			className=" bg-green bg-opacity-10 p-7 sm:p-5 flex flex-col items-center sm:flex-row gap-7 font-monserrat text-accent lg:justify-start text-center sm:text-left"
 		>
 			<div className=" max-w-56 text-accent lg:flex md:max-w-lg gap-3 items-center">
 				<HoverEffect rounded="rounded-md">
@@ -88,11 +88,11 @@ function Form({ setTeams }) {
 						id="fileInput"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className=" h-8 file:h-full cursor-pointer  file:text-offwhite file:bg-accent hover:text-offwhite text-sm max-w-60 file:border-none transition-all duration-300 "
+						className=" h-8 lg:h-9 w-56 file:h-full cursor-pointer  file:text-offwhite file:bg-accent hover:text-offwhite text-sm max-w-60 file:border-none transition-all duration-300 "
 					/>
 				</HoverEffect>
 
-				<p>and/or</p>
+				<p className=" text-sm">and/or</p>
 
 				<HoverEffect rounded="rounded-md">
 					<textarea
@@ -100,14 +100,14 @@ function Form({ setTeams }) {
 						id="inputList"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className=" h-8 w-30 p-1 bg-accent bg-opacity-0 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent placeholder:text-opacity-50 hover:placeholder:text-opacity-50 transition-all duration-300 ease-in-out hover:h-20  focus:h-20 focus:outline-none text-sm resize-none "
+						className=" h-8 w-56 p-1 bg-accent bg-opacity-0 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent placeholder:text-opacity-50 hover:placeholder:text-opacity-50 transition-all duration-300 ease-in-out hover:h-20  focus:h-20 focus:outline-none text-sm resize-none "
 					/>
 				</HoverEffect>
 			</div>
-			<div className=" flex flex-col lg:flex-row gap-5 ">
+			<div className=" flex flex-col lg:items-center lg:flex-row gap-2 lg:gap-4 ">
 				<div>
 					<p>Generate based on:</p>
-					<div className=" flex gap-2 text-sm">
+					<div className=" flex gap-2 text-sm justify-center">
 						<label className="flex items-center">
 							<input
 								type="radio"
@@ -139,10 +139,10 @@ function Form({ setTeams }) {
 						type="number"
 						min={0}
 						id="quantityInput"
-						placeholder="0"
+						placeholder="Quantity"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className="  p-1 w-20 placeholder:text-opacity-50 placeholder:text-accent hover:text-offwhite hover:placeholder:text-offwhite hover:placeholder:text-opacity-50 bg-opacity-0 bg-accent"
+						className="  p-1 w-56 sm:w-40 lg:w-32 lg:h-9  placeholder:text-opacity-50 placeholder:text-accent hover:text-offwhite hover:placeholder:text-offwhite hover:placeholder:text-opacity-50 bg-opacity-0 bg-accent"
 					/>
 				</HoverEffect>
 			</div>
@@ -150,7 +150,7 @@ function Form({ setTeams }) {
 				<button
 					onMouseEnter={toggleHover}
 					onMouseLeave={toggleHover}
-					className=" mx-auto p-2 w-28 h-28 lg:h-auto z-20"
+					className=" mx-auto z-20 p-3 sm:p-4"
 				>
 					GENERATE!
 				</button>
@@ -178,7 +178,7 @@ function HoverEffect(props) {
 	return (
 		<div
 			ref={wrapperRef}
-			className={` group relative ${props.rounded} h-auto bg-black bg-opacity-25 hover:text-offwhite m-auto overflow-hidden z-0 `}
+			className={` group relative ${props.rounded} bg-black bg-opacity-25 hover:text-offwhite h-full m-auto overflow-hidden z-0 `}
 		>
 			<div
 				style={{
