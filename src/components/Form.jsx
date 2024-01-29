@@ -5,7 +5,7 @@ import * as XLSX from "xlsx";
 function Form({ setTeams }) {
 	const [people, setPeople] = useState([]);
 	const { toggleHover } = useContext(CursorContext);
-	const [selectedFile, setSelectedFile] = useState([]);
+	const [selectedFile, setSelectedFile] = useState();
 
 	function generateTeams(people, totalteams) {
 		let newteams = [];
@@ -52,11 +52,11 @@ function Form({ setTeams }) {
 		const inputList = document.querySelector("#inputList").value;
 		const peopleInput = inputList.split("\n");
 		let peopleList = peopleInput.filter((person) => person !== "");
+		peopleList = peopleList.sort((a, b) => 0.5 - Math.random());
 
 		if (selectedFile) {
 			readFile(selectedFile, peopleList);
 		} else {
-			peopleList = peopleList.sort((a, b) => 0.5 - Math.random());
 			setPeople(peopleList);
 		}
 	}
@@ -88,7 +88,7 @@ function Form({ setTeams }) {
 						id="fileInput"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className=" h-8 lg:h-9 w-56 file:h-full cursor-pointer  file:text-offwhite file:bg-accent hover:text-offwhite text-sm max-w-60 file:border-none transition-all duration-300 "
+						className=" h-8 lg:h-9 w-56 file:h-full cursor-pointer file:text-offwhite file:bg-accent hover:text-offwhite text-sm max-w-60 file:border-none transition-all duration-300 "
 					/>
 				</HoverEffect>
 
