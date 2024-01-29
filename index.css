@@ -2,11 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-	--clr-accent: 73, 73, 67;
-	--alpha: 0.25
-}
-
-/* *{
-	cursor: none;
-} */

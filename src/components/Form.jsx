@@ -92,7 +92,7 @@ function Form({ setTeams }) {
 					/>
 				</HoverEffect>
 
-				<p className=" text-sm">and/or</p>
+				<p>and/or</p>
 
 				<HoverEffect rounded="rounded-md">
 					<textarea
@@ -100,11 +100,11 @@ function Form({ setTeams }) {
 						id="inputList"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className=" h-8 w-56 p-1 bg-accent bg-opacity-0 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent placeholder:text-opacity-50 hover:placeholder:text-opacity-50 transition-all duration-300 ease-in-out hover:h-20  focus:h-20 focus:outline-none text-sm resize-none "
+						className=" h-8 w-56 md:w-48 p-1 bg-accent bg-opacity-0 hover:placeholder:text-offwhite hover:text-offwhite placeholder:text-accent placeholder:text-opacity-50 hover:placeholder:text-opacity-50 transition-all duration-300 ease-in-out hover:h-20  focus:h-20 focus:outline-none text-sm resize-none "
 					/>
 				</HoverEffect>
 			</div>
-			<div className=" flex flex-col lg:items-center lg:flex-row gap-2 lg:gap-4 ">
+			<div className=" flex flex-col lg:items-center lg:flex-row gap-2 sm:gap-3 lg:gap-4 ">
 				<div>
 					<p>Generate based on:</p>
 					<div className=" flex gap-2 text-sm justify-center">
@@ -142,7 +142,7 @@ function Form({ setTeams }) {
 						placeholder="Quantity"
 						onMouseEnter={toggleHover}
 						onMouseLeave={toggleHover}
-						className="  p-1 w-56 sm:w-40 lg:w-32 lg:h-9  placeholder:text-opacity-50 placeholder:text-accent hover:text-offwhite hover:placeholder:text-offwhite hover:placeholder:text-opacity-50 bg-opacity-0 bg-accent"
+						className="  p-1 w-56 sm:w-40 lg:w-32 h-8 sm:h-9  text-sm placeholder:text-opacity-50 placeholder:text-accent hover:text-offwhite hover:placeholder:text-offwhite hover:placeholder:text-opacity-50 bg-opacity-0 bg-accent"
 					/>
 				</HoverEffect>
 			</div>
